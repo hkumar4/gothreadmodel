@@ -22,10 +22,8 @@ func NewPassiveTargetMatcher() *PassiveTargetMatcher {
 }
 
 func (passiveTargetMatcher *PassiveTargetMatcher) getCache() *SkuCache {
-	var cache *SkuCache
-	passiveTargetMatcher.rwLock.RLock() //Reader Lock
-	cache = passiveTargetMatcher.skuCache
-	passiveTargetMatcher.rwLock.RUnlock()
+	//var cache *SkuCache
+	cache := passiveTargetMatcher.skuCache
 	return cache
 }
 
@@ -37,8 +35,15 @@ func (passiveTargetMatcher *PassiveTargetMatcher) updateCache(cache *SkuCache) {
 }
 
 func (passiveTargetMatcher *PassiveTargetMatcher) findMatch(sku string) string {
+	passiveTargetMatcher.rwLock.RLock()        //Reader Lock
 	passiveTargetMatcher.getCache().match(sku) //Use CPU
+	passiveTargetMatcher.rwLock.RUnlock()
+
 	//Simulate Sync IO
 	time.Sleep(50 * time.Microsecond)
-	return passiveTargetMatcher.getCache().match(sku) //Use CPU
+
+	passiveTargetMatcher.rwLock.RLock()                    //Reader Lock
+	strategy := passiveTargetMatcher.getCache().match(sku) //Use CPU
+	passiveTargetMatcher.rwLock.RUnlock()
+	return strategy
 }
