@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-/**********************--------------------------------------
+/**----------------------------------------------------
  				Active Target Matcher
 *-----------------------------------------------------------*/
 
@@ -24,7 +24,7 @@ type TargetMatcherWorker struct {
 	skuCache        *SkuCache
 }
 
-//Factory method for constructing a TargetMatcher
+//Factory method for constructing a TargetMatcherWorker
 func NewTargetMatcherWorker() *TargetMatcherWorker {
 	targetMatcherWorker := new(TargetMatcherWorker)
 	targetMatcherWorker.queryChan = make(chan *QueryMessage, 1000)
@@ -42,7 +42,7 @@ func (targetMatcherWorker *TargetMatcherWorker) run() {
 				targetMatcherWorker.skuCache.match(queryMessage.sku) //Use CPU
 				//Simulate Async IO
 				go func() {
-					time.Sleep(10 * time.Microsecond)
+					time.Sleep(50 * time.Microsecond)
 					targetMatcherWorker.storeroomChan <- queryMessage
 				}()
 			} else {

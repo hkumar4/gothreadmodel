@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-/**********************--------------------------------------
+/*----------------------------------------------------
  				Passive Target Matcher
 *-----------------------------------------------------------*/
 
@@ -37,8 +37,8 @@ func (passiveTargetMatcher *PassiveTargetMatcher) updateCache(cache *SkuCache) {
 }
 
 func (passiveTargetMatcher *PassiveTargetMatcher) findMatch(sku string) string {
-	passiveTargetMatcher.getCache().match(sku)
+	passiveTargetMatcher.getCache().match(sku) //Use CPU
 	//Simulate Sync IO
-	time.Sleep(10 * time.Microsecond)
-	return passiveTargetMatcher.getCache().match(sku)
+	time.Sleep(50 * time.Microsecond)
+	return passiveTargetMatcher.getCache().match(sku) //Use CPU
 }

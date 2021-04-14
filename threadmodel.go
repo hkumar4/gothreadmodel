@@ -31,7 +31,7 @@ func (skuCache *SkuCache) match(sku string) string {
 	return str
 }
 
-/**********************--------------------------------------
+/*--------------------------------------
  				Target Matcher
 *-----------------------------------------------------------*/
 
@@ -40,7 +40,7 @@ type TargetMatcher interface {
 	findMatch(sku string) string
 }
 
-/**********************--------------------------------------
+/**--------------------------------------
  Cache Loader
 *-----------------------------------------------------------*/
 
@@ -141,7 +141,7 @@ func main() {
 	} else {
 		//default active
 		fmt.Println("Active Model")
-		targetMatcher = NewActiveTargetMatcher(8)
+		targetMatcher = NewActiveTargetMatcher(10)
 	}
 
 	targetCacheLoader := TargetCacheLoader{targetMatcher: targetMatcher}
