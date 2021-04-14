@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"os"
-	"runtime"
 	"strconv"
 	"sync"
 	"time"
@@ -118,7 +117,7 @@ func sendRequests(targetMatcher TargetMatcher, wg *sync.WaitGroup, num int) {
 		wg.Add(1)
 		if i%10 == 0 {
 			time.Sleep(10 * time.Microsecond)
-			fmt.Printf("%d\n", runtime.NumGoroutine())
+			//fmt.Printf("%d\n", runtime.NumGoroutine())
 		}
 		go func(i int) {
 			//fmt.Printf("Found: %s for %d\n", queryMatch(targetMatcherPool, strconv.Itoa(i)), i)
